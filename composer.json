@@ -1,6 +1,11 @@
 {
     "name":         "kagency/kagent",
     "description":  "Information managing agent",
+    "autoload": {
+        "psr-0": {
+            "Kagency": "src/"
+        }
+    },
     "require": {
     },
     "require-dev": {
