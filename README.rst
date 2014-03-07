@@ -45,8 +45,11 @@ current appointments) and thus can't be cached and requires online processing.
 Since the context might require additional data from data providers, it might
 only be possible to provide full event filtering when online.
 
-If te entire computational element (data) is tranferred to the client and only
-updated by the server side, we could 
+If the entire computational element (data) is tranferred to the client and only
+updated by the server side, we could apply the filters based on the local data
+on the offline device. In such a case we will probably have client and server
+side filters. Server side filters will probably annotate "static" information
+like preferences learned by certain algorithms.
 
 Concepts
 ========
