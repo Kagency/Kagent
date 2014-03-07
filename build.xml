@@ -82,50 +82,54 @@
     <target name="test-dynamic" depends="test-unit, test-feature" />
 
     <!--
-         Test-Unit: Run PHPUnit tests, if phpunit.xml is available in the project root.
+         Hook for unit tests
     -->
-    <target name="test-unit" depends="prepare, -test-unit:before~hook, -test-unit:main, -test-unit:after~hook" />
+    <target name="test-unit" depends="prepare, -test-unit:before~hook, -test-unit:main~hook, -test-unit:after~hook" />
 
-    <target name="-test-unit:check">
-        <available file="${basedir}/phpunit.xml" property="-test-unit:active"/>
+    <extension-point name="-test-unit:before~hook" />
+    <extension-point name="-test-unit:main~hook" />
+    <extension-point name="-test-unit:after~hook" />
+
+    <!--
+         Test-Unit: Run PHPUNit tests, if phpunit.xml is available in the project root.
+    -->
+    <target name="-phpunit:check">
+        <available file="${basedir}/phpunit.xml" property="-phpunit:active"/>
     </target>
 
-    <target name="-test-unit:main" depends="-test-unit:check" if="-test-unit:active">
+    <target name="phpunit" extensionOf="-test-unit:main~hook" depends="-phpunit:check" if="-phpunit:active">
         <exec executable="${basedir}/ivendor/bin/phpunit" failonerror="${test-unit.fail-on-violation}" dir="${basedir}">
             <arg value="--configuration" />
             <arg value="${basedir}/phpunit.xml" />
             <arg value="--log-junit" />
             <arg value="${logdir}/junit.xml" />
-            <arg value="--coverage-clover" />
-            <arg value="${logdir}/clover.xml" />
-            <arg value="--coverage-html" />
-            <arg value="${builddir}/coverage" />
         </exec>
     </target>
 
-    <extension-point name="-test-unit:before~hook" />
-    <extension-point name="-test-unit:after~hook" />
+    <!--
+         Hook for feature tests
+    -->
+    <target name="test-feature" depends="-test-feature:before~hook, -test-feature:main~hook, -test-feature:after~hook" />
+
+    <extension-point name="-test-feature:before~hook" />
+    <extension-point name="-test-feature:main~hook" />
+    <extension-point name="-test-feature:after~hook" />
 
     <!--
          Test-Feature: Run Behat tests, if behat.yml is available in the project root.
     -->
-    <target name="test-feature" depends="-test-feature:before~hook, -test-feature:main, -test-feature:after~hook" />
-
-    <target name="-test-feature:check">
-        <available file="${basedir}/behat.yml" property="-test-feature:active"/>
+    <target name="-behat:check">
+        <available file="${basedir}/behat.yml" property="-behat:active"/>
     </target>
 
-    <target name="-test-feature:main" depends="-test-feature:check" if="-test-feature:active">
-        <exec executable="${basedir}/vendor/bin/behat" failonerror="${test-feature.fail-on-violation}" dir="${basedir}">
+    <target name="behat" extensionOf="-test-feature:main~hook" depends="-behat:check" if="-behat:active">
+        <exec executable="${basedir}/vendor/bin/behat" failonerror="${behat.fail-on-violation}" dir="${basedir}">
             <arg value="--format" />
             <arg value="junit,progress" />
             <arg value="--out" />
             <arg value="${logdir}," />
         </exec>
     </target>
-
-    <extension-point name="-test-feature:before~hook" />
-    <extension-point name="-test-feature:after~hook" />
 
     <!--
          Hook for static code analysis
@@ -136,7 +140,7 @@
     <extension-point name="-test-static:main~hook" />
     <extension-point name="-test-static:after~hook" />
 
-    <target name="test-static-cpd" extensionOf="-test-static:main~hook">
+    <target name="phpcpd" extensionOf="-test-static:main~hook">
         <exec executable="${basedir}/vendor/bin/phpcpd" failonerror="${test-static-cpd.fail-on-violation}" dir="${basedir}">
             <arg value="--log-pmd" />
             <arg value="${logdir}/cpd.xml" />
@@ -144,14 +148,14 @@
         </exec>
     </target>
 
-    <target name="test-static-pdepend" extensionOf="-test-static:main~hook">
+    <target name="pdepend" extensionOf="-test-static:main~hook">
         <exec executable="${basedir}/vendor/bin/pdepend" failonerror="${test-static-pdepend.fail-on-violation}" dir="${basedir}">
             <arg value="--jdepend-xml=${logdir}/jdepend.xml" />
             <arg value="${srcdir}" />
         </exec>
     </target>
 
-    <target name="test-static-checkstyle" extensionOf="-test-static:main~hook">
+    <target name="checkstyle" extensionOf="-test-static:main~hook">
         <exec executable="${basedir}/vendor/bin/phpcs" failonerror="${test-static-checkstyle.fail-on-violation}" dir="${basedir}">
             <arg value="--standard=${coding.standard}" />
             <arg value="--report=checkstyle" />
@@ -160,9 +164,9 @@
         </exec>
     </target>
 
-    <target name="test-static-pmd" extensionOf="-test-static:main~hook">
-        <fileset id="test-static-pmd.fileset" dir="${basedir}" casesensitive="false">
-            <include name="${srcdir}/**/*.php" />
+    <target name="phpmd" extensionOf="-test-static:main~hook">
+        <fileset id="test-static-pmd.fileset" dir="${srcdir}" casesensitive="no">
+            <include name="**/*.php" />
         </fileset>
 
         <pathconvert pathsep="," property="test-static-pmd.files" refid="test-static-pmd.fileset"/>
@@ -173,6 +177,17 @@
             <arg value="codesize,design" />
             <arg line="--reportfile" />
             <arg line="${logdir}/pmd.xml" />
+        </exec>
+    </target>
+
+    <target name="coverage" extensionOf="-test-static:main~hook" depends="-phpunit:check" if="-phpunit:active">
+        <exec executable="${basedir}/ivendor/bin/phpunit" failonerror="${test-unit.fail-on-violation}" dir="${basedir}">
+            <arg value="--configuration" />
+            <arg value="${basedir}/phpunit.xml" />
+            <arg value="--coverage-clover" />
+            <arg value="${logdir}/clover.xml" />
+            <arg value="--coverage-html" />
+            <arg value="${builddir}/coverage" />
         </exec>
     </target>
 
