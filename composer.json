@@ -1,0 +1,14 @@
+{
+    "name":         "kagency/kagent",
+    "description":  "Information managing agent",
+    "require": {
+    },
+    "require-dev": {
+        "behat/behat": "@stable",
+        "pdepend/pdepend": "@stable",
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "@stable",
+        "sebastian/phpcpd": "@stable",
+        "squizlabs/php_codesniffer": "@stable"
+    }
+}
