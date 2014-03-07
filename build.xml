@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Kagent" basedir="./">
+
+    <!--
+        Include local project properties.
+    -->
+    <property file="${basedir}/build.properties.local" />
+    <property file="${basedir}/build.properties" />
+
+    <property name="builddir" location="${basedir}/build/" />
+    <property name="logdir" location="${builddir}/log/" />
+
+    <!--
+         Clean: Clean up old build artifacts
+    -->
+    <target name="clean" depends="-clean:before~hook, -clean:main, -clean:after~hook" />
+
+    <target name="-clean:main">
+        <delete dir="{$builddir}"/>
+    </target>
+
+    <extension-point name="-clean:before~hook" />
+    <extension-point name="-clean:after~hook" />
+
+    <!--
+        Initialize: Setup databases and fixture dependencies
+    -->
+    <target name="initialize" depends="-initialize:before~hook, -initialize:main, -initialize:after~hook" />
+
+    <target name="-initialize:main" />
+
+    <extension-point name="-initialize:before~hook" />
+    <extension-point name="-initialize:after~hook" />
+
+    <!--
+         Prepare: Set up all directories, required for the build process
+    -->
+    <target name="prepare" depends="-prepare:before~hook, -prepare:main, -prepare:after~hook" />
+
+    <target name="-prepare:main" depends="clean">
+        <mkdir dir="${builddir}" />
+        <mkdir dir="${logdir}" />
+    </target>
+
+    <extension-point name="-prepare:before~hook" />
+    <extension-point name="-prepare:after~hook" />
+
+    <target name="-composer:install-or-update"
+            depends="-composer:install, -composer:update" />
+
+    <target name="-composer:install" depends="-composer:exists" unless="${-composer.exists}">
+        <get src="http://getcomposer.org/composer.phar"
+             dest="${basedir}/composer.phar" />
+
+        <chmod file="${basedir}/composer.phar" perm="ugo+rx"/>
+    </target>
+
+    <target name="-composer:update" depends="-composer:exists" if="${-composer.exists}">
+        <exec executable="php" failonerror="true">
+            <arg value="${basedir}/composer.phar" />
+            <arg value="selfupdate" />
+        </exec>
+    </target>
+
+    <target name="-composer:exists">
+        <available file="${basedir}/composer.phar"
+                   property="-composer.exists" />
+    </target>
+
+    <target name="-composer:dependencies-install" depends="-composer:install-or-update">
+        <exec executable="php" failonerror="true">
+            <arg value="${basedir}/composer.phar" />
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="test" depends="test-dynamic, test-static" />
+
+    <target name="test-dynamic" depends="test-unit, test-feature" />
+
+    <!--
+         Test-Unit: Run PHPUnit tests, if phpunit.xml is available in the project root.
+    -->
+    <target name="test-unit" depends="prepare, -test-unit:before~hook, -test-unit:main, -test-unit:after~hook" />
+
+    <target name="-test-unit:check">
+        <available file="${basedir}/phpunit.xml" property="-test-unit:active"/>
+    </target>
+
+    <target name="-test-unit:main" depends="prepare, -test-unit:check" if="-test-unit:active">
+        <exec executable="${basedir}/bin/phpunit" failonerror="${test-unit.fail-on-violation}" dir="${basedir}">
+            <arg value="--configuration" />
+            <arg value="${basedir}/phpunit.xml" />
+            <arg value="--log-junit" />
+            <arg value="${logdir}/junit.xml" />
+            <arg value="--coverage-clover" />
+            <arg value="${logdir}/clover.xml" />
+            <arg value="--coverage-html" />
+            <arg value="${builddir}/coverage" />
+        </exec>
+    </target>
+
+    <extension-point name="-test-unit:before~hook" />
+    <extension-point name="-test-unit:after~hook" />
+
+    <!--
+         Test-Feature: Run Behat tests, if behat.yml is available in the project root.
+    -->
+    <target name="test-feature" depends="-test-feature:before~hook, -test-feature:main, -test-feature:after~hook" />
+
+    <target name="-test-feature:check">
+        <available file="${basedir}/behat.yml" property="-test-feature:active"/>
+    </target>
+
+    <target name="-test-feature:main">
+        <exec executable="${basedir}/bin/behat" failonerror="${test-feature.fail-on-violation}" dir="${basedir}">
+            <arg value="--format" />
+            <arg value="junit,progress" />
+            <arg value="--out" />
+            <arg value="${logdir}," />
+        </exec>
+    </target>
+
+    <extension-point name="-test-feature:before~hook" />
+    <extension-point name="-test-feature:after~hook" />
+
+    <!--
+         Hook for static code analysis
+    -->
+    <target name="test-static" depends="prepare, -test-static:before~hook, -test-static:main~hook, -test-static:after~hook" />
+
+    <extension-point name="-test-static:before~hook" />
+    <extension-point name="-test-static:main~hook" />
+    <extension-point name="-test-static:after~hook" />
+
+    <target name="test-static-cpd" extensionOf="-test-static:main~hook">
+        <exec executable="${basedir}/vendor/bin/phpcpd" failonerror="${test-static-checkstyle.fail-on-violation}" dir="${basedir}">
+            <arg value="--log-pmd" />
+            <arg value="${logdir}/cpd.xml" />
+            <arg value="${srcdir}" />
+        </exec>
+    </target>
+
+    <target name="test-static-pdepend" extensionOf="-test-static:main~hook">
+        <exec executable="${basedir}/vendor/bin/pdepend" failonerror="${test-static-pdepend.fail-on-violation}" dir="${basedir}">
+            <arg value="--jdepend-xml=${logdir}/jdepend.xml" />
+            <arg value="${srcdir}" />
+        </exec>
+    </target>
+
+    <target name="test-static-checkstyle" extensionOf="-test-static:main~hook">
+        <exec executable="${basedir}/vendor/bin/phpcs" failonerror="${test-static-checkstyle.fail-on-violation}" dir="${basedir}">
+            <arg value="--standard=${coding.standard}" />
+            <arg value="--report=checkstyle" />
+            <arg value="--report-file=${logdir}/checkstyle-result.xml" />
+            <arg value="${srcdir}" />
+        </exec>
+    </target>
+
+    <target name="test-static-pmd" extensionOf="-test-static:main~hook">
+        <fileset id="test-static-pmd.fileset" dir="${basedir}" casesensitive="false">
+            <include name="${srcdir}/**/*.php" />
+        </fileset>
+
+        <pathconvert pathsep="," property="test-static-pmd.files" refid="test-static-pmd.fileset"/>
+
+        <exec executable="${basedir}/vendor/bin/phpmd" failonerror="${test-static-pmd.fail-on-violation}" dir="src/">
+            <arg value="${test-static-pmd.files}" />
+            <arg value="xml" />
+            <arg value="codesize,design,naming,unusedcode" />
+            <arg line="--reportfile" />
+            <arg line="${logdir}/pmd.xml" />
+        </exec>
+    </target>
+
+    <!--
+         Package target: Builds release package
+    -->
+    <target name="package" depends="-package:before~hook, -package:main, -package:after~hook" />
+
+    <target name="-package:main" depends="test">
+        <fail>Overwrite with custom packging task.</fail>
+    </target>
+
+    <extension-point name="-package:before~hook" />
+    <extension-point name="-package:after~hook" />
+
+    <!--
+         Deploy target: Moves the packaged and tested to the remote host
+    -->
+    <target name="deploy" depends="-deploy:before~hook, -deploy:main, -deploy:after~hook" />
+
+    <target name="-deploy:main" depends="package">
+        <fail>Overwrite with custom deploy task.</fail>
+    </target>
+
+    <extension-point name="-deploy:before~hook" />
+    <extension-point name="-deploy:after~hook" />
+</project>
