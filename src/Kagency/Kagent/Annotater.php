@@ -16,6 +16,7 @@ abstract class Annotater
     /**
      * Annotate user context with additional information
      *
+     * @param Context $context
      * @return void
      */
     abstract public function annotateContext(Context $context);
