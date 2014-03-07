@@ -57,8 +57,8 @@ Concepts
 This sections describes the concepts behind Kagency and how they interact with
 each other.
 
-ContextProvider
----------------
+Annotater
+---------
 
 Enriches the current user context with additional information. Examples:
 
