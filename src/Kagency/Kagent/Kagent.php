@@ -47,6 +47,14 @@ class Kagent
     /**
      * Process
      *
+     * Main method of the project. Executes all actions, which are meant to be
+     * performed from time to time. In theory those tasks could be split up
+     * into several processes, since they do not depend on each other.
+     *
+     * @TODO: This method requires some error / exception handling.
+     *
+     * @TODO: This method should probably be split up into several methods.
+     *
      * @return void
      */
     public function process()
