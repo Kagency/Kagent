@@ -7,6 +7,9 @@
         }
     },
     "require": {
+        "silex/silex": "@stable",
+        "symfony/config": "@stable",
+        "symfony/dependency-injection": "@stable"
     },
     "require-dev": {
         "behat/behat": "@stable",
