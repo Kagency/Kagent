@@ -17,6 +17,9 @@ class FeatureContext extends BehatContext
      */
     public function __construct(array $parameters)
     {
-        // Initialize your context here
+        $this->useContext(
+            'kagent',
+            new Kagency\Kagent\KagentContext($parameters)
+        );
     }
 }
