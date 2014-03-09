@@ -2,6 +2,9 @@
 
 namespace Kagency\Kagent\Storage;
 
+use Kagency\Kagent\User;
+use Kagency\Kagent\Task;
+
 /**
  * Class: TaskStorage
  *
