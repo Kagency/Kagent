@@ -8,6 +8,14 @@ use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Parser;
 
+/**
+ * Class: App
+ *
+ * Main class handling module loading and building the Dependency Injection
+ * Container from all those modules.
+ *
+ * @version $Revision$
+ */
 class App
 {
     /**
