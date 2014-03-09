@@ -15,13 +15,13 @@
     <!--
         Enable used modules
     -->
-    <include file="${basedir}/ant/composer.xml" />
-    <include file="${basedir}/ant/phpunit.xml" />
-    <include file="${basedir}/ant/behat.xml" />
-    <include file="${basedir}/ant/checkstyle.xml" />
-    <include file="${basedir}/ant/pdepend.xml" />
-    <include file="${basedir}/ant/phpcpd.xml" />
-    <include file="${basedir}/ant/phpmd.xml" />
+    <import file="${basedir}/ant/composer.xml" />
+    <import file="${basedir}/ant/phpunit.xml" />
+    <import file="${basedir}/ant/behat.xml" />
+    <import file="${basedir}/ant/checkstyle.xml" />
+    <import file="${basedir}/ant/pdepend.xml" />
+    <import file="${basedir}/ant/phpcpd.xml" />
+    <import file="${basedir}/ant/phpmd.xml" />
 
     <!--
          Clean: Clean up old build artifacts
