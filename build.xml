@@ -12,6 +12,9 @@
     <property name="srcdir" location="${basedir}/src/" />
     <property name="bindir" location="${basedir}/vendor/bin/" />
 
+    <!--
+        Enable used modules
+    -->
     <include file="${basedir}/ant/composer.xml" />
     <include file="${basedir}/ant/phpunit.xml" />
     <include file="${basedir}/ant/behat.xml" />
