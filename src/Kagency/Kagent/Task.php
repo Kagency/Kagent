@@ -5,7 +5,7 @@ namespace Kagency\Kagent;
 /**
  * Class: Task
  *
- * Struct representing an event
+ * Struct representing a task
  *
  * @version $Revision$
  */
