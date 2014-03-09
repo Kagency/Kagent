@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+namespace Kagency\Kagent;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+$app = new App(
+    __DIR__ . '/../config/',
+    __DIR__ . '/../../var/',
+    array(
+        // @TODO: Add modules here
+    ),
+    false
+);
+
+$kagent = $app->getContainer()->get('kagent');
+$kagent->process();
+
