@@ -11,9 +11,8 @@ $app = new App(
     array(
         // @TODO: Add modules here
     ),
-    false
+    true
 );
 
-$kagent = $app->getContainer()->get('kagent');
+$kagent = $app->getContainer()->get('kagency.kagent');
 $kagent->process();
-
