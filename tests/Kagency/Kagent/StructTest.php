@@ -43,6 +43,8 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $struct = new TestStruct();
         $struct->property = 42;
         unset($struct->property);
+
+        $this->assertFalse(isset($struct->property));
     }
 
     public function testIssetValue()
