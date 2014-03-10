@@ -7,6 +7,9 @@ class TestStruct extends Struct
     public $property;
 }
 
+/**
+ * @covers Kagency\Kagent\Struct
+ */
 class StructTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetValue()

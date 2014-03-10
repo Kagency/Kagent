@@ -6,6 +6,9 @@ use Kagency\Kagent\StorageTest;
 
 require_once __DIR__ . '/../StorageTest.php';
 
+/**
+ * @covers \Kagency\Kagent\Storage\InMemory
+ */
 class InMemoryTest extends StorageTest
 {
     /**
