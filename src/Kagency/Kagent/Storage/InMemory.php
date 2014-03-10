@@ -4,9 +4,9 @@ namespace Kagency\Kagent\Storage;
 
 use Kagency\Kagent\Storage;
 use Kagency\Kagent\User;
-use Kagency\Kagent\Event;
-use Kagency\Kagent\Task;
-use Kagency\Kagent\Data;
+use Kagency\Kagent\Versioned\Event;
+use Kagency\Kagent\Versioned\Task;
+use Kagency\Kagent\Versioned\Data;
 
 /**
  * Class: InMemory

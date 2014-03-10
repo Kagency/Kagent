@@ -1,6 +1,8 @@
 <?php
 
-namespace Kagency\Kagent;
+namespace Kagency\Kagent\Versioned;
+
+use Kagency\Kagent\Versioned;
 
 /**
  * Class: Data
@@ -9,15 +11,8 @@ namespace Kagency\Kagent;
  *
  * @version $Revision$
  */
-class Data extends Struct
+class Data extends Versioned
 {
-    /**
-     * Revision
-     *
-     * @var string
-     */
-    public $revision;
-
     /**
      * Data set data
      *

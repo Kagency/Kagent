@@ -2,6 +2,10 @@
 
 namespace Kagency\Kagent;
 
+use Kagency\Kagent\Versioned\Event;
+use Kagency\Kagent\Versioned\Task;
+use Kagency\Kagent\Versioned\Data;
+
 abstract class StorageTest extends \PHPUnit_Framework_TestCase
 {
     /**

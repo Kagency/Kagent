@@ -3,7 +3,7 @@
 namespace Kagency\Kagent\Storage;
 
 use Kagency\Kagent\User;
-use Kagency\Kagent\Event;
+use Kagency\Kagent\Versioned\Event;
 
 /**
  * Class: EventStorage

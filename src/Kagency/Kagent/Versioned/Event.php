@@ -1,6 +1,8 @@
 <?php
 
-namespace Kagency\Kagent;
+namespace Kagency\Kagent\Versioned;
+
+use Kagency\Kagent\Versioned;
 
 /**
  * Class: Event
@@ -9,15 +11,8 @@ namespace Kagency\Kagent;
  *
  * @version $Revision$
  */
-class Event extends Struct
+class Event extends Versioned
 {
-    /**
-     * Revision
-     *
-     * @var string
-     */
-    public $revision;
-
     /**
      * Type
      *

@@ -3,7 +3,7 @@
 namespace Kagency\Kagent\Storage;
 
 use Kagency\Kagent\User;
-use Kagency\Kagent\Data;
+use Kagency\Kagent\Versioned\Data;
 
 /**
  * Class: Data storage

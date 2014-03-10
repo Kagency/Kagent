@@ -3,13 +3,13 @@
 namespace Kagency\Kagent;
 
 /**
- * Class: Task
+ * Class: Versioned
  *
- * Struct representing a task
+ * Base class representing versioned entities
  *
  * @version $Revision$
  */
-class Task extends Struct
+abstract class Versioned extends Struct
 {
     /**
      * Revision
@@ -19,16 +19,9 @@ class Task extends Struct
     public $revision;
 
     /**
-     * Type
+     * Revision in source system
      *
      * @var string
      */
-    public $type;
-
-    /**
-     * Task data
-     *
-     * @var array
-     */
-    public $data;
+    public $sourceRevision;
 }

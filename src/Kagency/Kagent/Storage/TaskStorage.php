@@ -3,7 +3,7 @@
 namespace Kagency\Kagent\Storage;
 
 use Kagency\Kagent\User;
-use Kagency\Kagent\Task;
+use Kagency\Kagent\Versioned\Task;
 
 /**
  * Class: TaskStorage
