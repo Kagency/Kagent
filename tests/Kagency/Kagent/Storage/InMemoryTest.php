@@ -8,6 +8,7 @@ require_once __DIR__ . '/../StorageTest.php';
 
 /**
  * @covers \Kagency\Kagent\Storage\InMemory
+ * @uses Kagency\Kagent\Struct
  */
 class InMemoryTest extends StorageTest
 {

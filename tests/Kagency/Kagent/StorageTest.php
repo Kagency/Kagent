@@ -6,6 +6,13 @@ use Kagency\Kagent\Versioned\Event;
 use Kagency\Kagent\Versioned\Task;
 use Kagency\Kagent\Versioned\Data;
 
+/**
+ * Class: StorageTest
+ *
+ * Base class for tests for all storages.
+ *
+ * @version $Revision$
+ */
 abstract class StorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
