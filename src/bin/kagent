@@ -14,5 +14,10 @@ $app = new App(
     true
 );
 
+// Simulate a single user for now
+$userStorage = $app->getContainer()->get('kagency.kagent.storage.user');
+$userStorage->save(new User(array("name" => "Kore")));
+
+// Main processing loop
 $kagent = $app->getContainer()->get('kagency.kagent');
 $kagent->process();
