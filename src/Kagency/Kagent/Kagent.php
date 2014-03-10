@@ -2,6 +2,8 @@
 
 namespace Kagency\Kagent;
 
+use Kagency\Kagent\Storage\UserStorage;
+
 /**
  * Class: Kagent
  *
@@ -21,14 +23,22 @@ class Kagent
     private $storage;
 
     /**
-     * __constuct
+     * User storage
+     *
+     * @var UserStorage
+     */
+    private $userStorage;
+
+    /**
+     * __construct
      *
      * @param mixed Storage $storage
      * @return void
      */
-    public function __constuct(Storage $storage)
+    public function __construct(Storage $storage, UserStorage $userStorage)
     {
         $this->storage = $storage;
+        $this->userStorage = $userStorage;
     }
 
     /**

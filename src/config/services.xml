@@ -13,10 +13,15 @@
         <service id="kagency.kagent"
                  class="Kagency\Kagent\Kagent">
             <argument type="service" id="kagency.kagent.storage" />
+            <argument type="service" id="kagency.kagent.storage.user" />
         </service>
 
         <service id="kagency.kagent.storage"
                  class="Kagency\Kagent\Storage\InMemory">
+        </service>
+
+        <service id="kagency.kagent.storage.user"
+                 class="Kagency\Kagent\Storage\UserStorage\InMemory">
         </service>
     </services>
 </container>
