@@ -1,6 +1,8 @@
 <?php
 
-namespace Kagency\Kagent;
+namespace Kagency\Kagent\Storage;
+
+use Kagency\Kagent\User;
 
 /**
  * Class: UserStorage
@@ -33,14 +35,6 @@ abstract class UserStorage
      * @return void
      */
     abstract public function save(User $user);
-
-    /**
-     * Create new user
-     *
-     * @param User $user
-     * @return void
-     */
-    abstract public function create(User $user);
 
     /**
      * Disable user
