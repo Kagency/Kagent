@@ -30,15 +30,23 @@ class Kagent
     private $userStorage;
 
     /**
+     * Event source forcing
+     *
+     * @var EventSourceFactory
+     */
+    private $eventSourceFactory;
+
+    /**
      * __construct
      *
      * @param mixed Storage $storage
      * @return void
      */
-    public function __construct(Storage $storage, UserStorage $userStorage)
+    public function __construct(Storage $storage, UserStorage $userStorage, EventSourceFactory $eventSourceFactory)
     {
         $this->storage = $storage;
         $this->userStorage = $userStorage;
+        $this->eventSourceFactory = $eventSourceFactory;
     }
 
     /**

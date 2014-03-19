@@ -18,8 +18,9 @@ abstract class EventSource
      *
      * Get all new events since the provided revision
      *
+     * @param EventSource\Configuration $configuration
      * @param string $since
      * @return Event[]
      */
-    abstract public function getNewEvents($since);
+    abstract public function getNewEvents(EventSource\Configuration $configuration, $since);
 }

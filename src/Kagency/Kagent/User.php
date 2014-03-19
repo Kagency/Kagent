@@ -17,4 +17,18 @@ class User extends Struct
      * @var string
      */
     public $name;
+
+    /**
+     * Last task revisions
+     *
+     * @var array
+     */
+    public $lastTaskRevision;
+
+    /**
+     * Event source configurations
+     *
+     * @var EventSource\Configuration[]
+     */
+    public $eventSources = array();
 }
