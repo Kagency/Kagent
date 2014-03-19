@@ -1,6 +1,12 @@
 {
     "name":         "kagency/kagent",
     "description":  "Information managing agent",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:Kagency/module-rss.git"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Kagency": "src/"
@@ -9,7 +15,8 @@
     "require": {
         "silex/silex": "@stable",
         "symfony/config": "@stable",
-        "symfony/dependency-injection": "@stable"
+        "symfony/dependency-injection": "@stable",
+        "kagency/module-rss": "@dev"
     },
     "require-dev": {
         "behat/behat": "@stable",
