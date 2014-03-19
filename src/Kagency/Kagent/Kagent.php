@@ -52,7 +52,7 @@ class Kagent
     public function __construct(
         Storage $storage,
         UserStorage $userStorage,
-        EventSourceFactory $eventSourceFactory,
+        EventSource\Factory $eventSourceFactory,
         DataProvider\Factory $dataProviderFactory
     ) {
         $this->storage = $storage;

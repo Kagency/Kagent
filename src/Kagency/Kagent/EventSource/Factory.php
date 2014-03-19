@@ -1,6 +1,9 @@
 <?php
 
-namespace Kagency\Kagent;
+namespace Kagency\Kagent\EventSource;
+
+use Kagency\Kagent\EventSource;
+use Kagency\Kagent\User;
 
 /**
  * Class: EventSourceFactory
@@ -9,7 +12,7 @@ namespace Kagency\Kagent;
  *
  * @version $Revision$
  */
-class EventSourceFactory
+class Factory
 {
     /**
      * Event sources

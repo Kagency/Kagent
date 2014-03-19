@@ -27,7 +27,7 @@
         </service>
 
         <service id="kagency.kagent.factory.event_source"
-                 class="Kagency\Kagent\EventSourceFactory">
+                 class="Kagency\Kagent\EventSource\Factory">
         </service>
 
         <service id="kagency.kagent.factory.data_provider"
