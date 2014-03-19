@@ -26,6 +26,10 @@ abstract class Module
      */
     public function initialize(App $app)
     {
+        foreach ($this->getEventSources() as $name => $eventSource) {
+            $app->getContainer()->get('kagency.kagent.factory.event_source')->registerEventSource($name, $eventSource);
+        }
+
         // @TODO: Register module services
         // @TODO: Register module configuration
         // @TODO: Register module assets

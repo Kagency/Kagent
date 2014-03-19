@@ -33,6 +33,13 @@ class User extends Struct
     public $eventSources = array();
 
     /**
+     * Last event source revision
+     *
+     * @var array
+     */
+    public $lastEventSourceRevision = array();
+
+    /**
      * Data provider configurations
      *
      * @var DataProvider\Configuration[]

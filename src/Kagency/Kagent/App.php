@@ -77,6 +77,7 @@ class App
     public function registerModule(Module $module)
     {
         $this->modules[] = $module;
+        $module->initialize($this);
     }
 
     /**

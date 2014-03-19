@@ -16,8 +16,19 @@ $app = new App(
 
 // Simulate a single user for now
 $userStorage = $app->getContainer()->get('kagency.kagent.storage.user');
-$userStorage->save(new User(array("name" => "Kore")));
+$userStorage->save(
+    new User(
+        array(
+            "name" => "Kore",
+            "eventSources" => array(
+                "rss" => new EventSource\Configuration()
+            ),
+        )
+    )
+);
 
 // Main processing loop
 $kagent = $app->getContainer()->get('kagency.kagent');
+$app->registerModule(new \Kagency\Module\RSS\Module());
+
 $kagent->process();
