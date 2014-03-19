@@ -31,4 +31,11 @@ class User extends Struct
      * @var EventSource\Configuration[]
      */
     public $eventSources = array();
+
+    /**
+     * Data provider configurations
+     *
+     * @var DataProvider\Configuration[]
+     */
+    public $dataProviders = array();
 }
