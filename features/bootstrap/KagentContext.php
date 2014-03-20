@@ -5,6 +5,8 @@ namespace Kagency\Kagent;
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Exception\PendingException;
 
+use PHPUnit_Framework_Assert as Assert;
+
 /**
  * Kagent specific context
  */
@@ -85,6 +87,9 @@ class KagentContext extends BehatContext
      */
     public function iReceiveEvents($name)
     {
-        throw new PendingException();
+        $events = $this->kagent->getEvents($this->user, null);
+
+        Assert::assertTrue(count($events) > 1, "At minimum one event has been recieved.");
+        Assert::assertSame($name, $events[0]->type);
     }
 }

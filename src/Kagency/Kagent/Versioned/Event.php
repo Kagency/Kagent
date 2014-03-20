@@ -21,9 +21,16 @@ class Event extends Versioned
     public $type;
 
     /**
+     * Priority
+     *
+     * @var float
+     */
+    public $priority = 1.0;
+
+    /**
      * Event data
      *
-     * @var array
+     * @var Struct
      */
     public $data;
 }
