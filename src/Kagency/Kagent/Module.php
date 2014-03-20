@@ -30,6 +30,10 @@ abstract class Module
             $app->getContainer()->get('kagency.kagent.factory.event_source')->registerEventSource($name, $eventSource);
         }
 
+        foreach ($this->getAgents() as $agent) {
+            $app->getContainer()->get('kagency.kagent.agent_dispatcher')->addAgent($agent);
+        }
+
         // @TODO: Register module services
         // @TODO: Register module configuration
         // @TODO: Register module assets
