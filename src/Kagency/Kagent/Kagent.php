@@ -120,7 +120,8 @@ class Kagent
             }
 
             foreach ($this->eventSourceFactory->getEventSources($user) as $id => $eventSource) {
-                foreach ($eventSource->getNewEvents($eventSourceContext->getLastEventSourceRevision($user, $id)) as $event) {
+                $lastRevision = $eventSourceContext->getLastEventSourceRevision($user, $id);
+                foreach ($eventSource->getNewEvents($lastRevision) as $event) {
                     $event->revision = $this->revisionProvider->next();
 
                     $user->lastEventSourceRevision[$id] = $event->sourceRevision;
