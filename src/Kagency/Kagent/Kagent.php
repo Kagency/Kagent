@@ -108,6 +108,9 @@ class Kagent
      */
     public function process()
     {
+        // @TODO: Inject dependency
+        $eventSourceContext = new User\EventSourceContext();
+
         foreach ($this->userStorage->getUsers() as $user) {
             foreach ($this->storage->getTasksSince($user, $user->lastTaskRevision) as $task) {
                 $this->agentDispatcher->handle($user, $task);
@@ -117,7 +120,7 @@ class Kagent
             }
 
             foreach ($this->eventSourceFactory->getEventSources($user) as $id => $eventSource) {
-                foreach ($eventSource->getNewEvents($user->lastEventSourceRevision[$id]) as $event) {
+                foreach ($eventSource->getNewEvents($eventSourceContext->getLastEventSourceRevision($user, $id)) as $event) {
                     $event->revision = $this->revisionProvider->next();
 
                     $user->lastEventSourceRevision[$id] = $event->sourceRevision;

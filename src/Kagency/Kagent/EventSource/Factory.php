@@ -55,13 +55,13 @@ class Factory
     public function getEventSources(User $user)
     {
         $eventSources = array();
-        foreach ($user->eventSources as $name => $configuration) {
-            if (!isset($this->eventSources[$name])) {
-                throw new \OutOfBoundsException("Unknown event source type: $name");
+        foreach ($user->eventSources as $configuration) {
+            if (!isset($this->eventSources[$configuration->name])) {
+                throw new \OutOfBoundsException("Unknown event source type: {$configuration->name}");
             }
 
             $eventSources[] = new EventSource\UserWrapper(
-                $this->eventSources[$name],
+                $this->eventSources[$configuration->name],
                 $configuration
             );
         }
