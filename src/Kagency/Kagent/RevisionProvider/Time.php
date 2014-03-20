@@ -10,6 +10,9 @@ use Kagency\Kagent\RevisionProvider;
  * Simple time base revision provider. May only be used in non-distributed
  * environments. Ensures only locally increasing revisions.
  *
+ * Under high load this *will* generate dublicate revisions. Do NOT use in high
+ * load scenarios.
+ *
  * @version $Revision$
  */
 class Time extends RevisionProvider
