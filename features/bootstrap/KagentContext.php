@@ -77,7 +77,7 @@ class KagentContext extends BehatContext
      */
     public function theProcessingIsCompleted()
     {
-        throw new PendingException();
+        $this->kagent->process();
     }
 
     /**

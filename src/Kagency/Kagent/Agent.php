@@ -2,6 +2,8 @@
 
 namespace Kagency\Kagent;
 
+use Kagency\Kagent\Versioned\Task;
+
 /**
  * Class: Agent
  *
@@ -24,8 +26,9 @@ abstract class Agent
     /**
      * Handle task
      *
+     * @param User $user
      * @param Task $task
      * @return void
      */
-    abstract public function handle(Task $task);
+    abstract public function handle(User $user, Task $task);
 }

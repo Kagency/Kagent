@@ -52,6 +52,13 @@ class Kagent
     private $dataProviderFactory;
 
     /**
+     * Agent dispatcher
+     *
+     * @var Agent\Dispatcher
+     */
+    private $agentDispatcher;
+
+    /**
      * __construct
      *
      * @param mixed Storage $storage
@@ -62,13 +69,15 @@ class Kagent
         UserStorage $userStorage,
         RevisionProvider $revisionProvider,
         EventSource\Factory $eventSourceFactory,
-        DataProvider\Factory $dataProviderFactory
+        DataProvider\Factory $dataProviderFactory,
+        Agent\Dispatcher $agentDispatcher
     ) {
         $this->storage = $storage;
         $this->userStorage = $userStorage;
         $this->revisionProvider = $revisionProvider;
         $this->eventSourceFactory = $eventSourceFactory;
         $this->dataProviderFactory = $dataProviderFactory;
+        $this->agentDispatcher = $agentDispatcher;
     }
 
     /**
