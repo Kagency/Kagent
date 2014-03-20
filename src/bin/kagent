@@ -9,7 +9,7 @@ $app = new App(
     __DIR__ . '/../config/',
     __DIR__ . '/../../var/',
     array(
-        // @TODO: Add modules here
+        new \Kagency\Module\RSS\Module(),
     ),
     true
 );
@@ -29,6 +29,5 @@ $userStorage->save(
 
 // Main processing loop
 $kagent = $app->getContainer()->get('kagency.kagent');
-$app->registerModule(new \Kagency\Module\RSS\Module());
 
 $kagent->process();

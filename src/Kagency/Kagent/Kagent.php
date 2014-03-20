@@ -3,6 +3,7 @@
 namespace Kagency\Kagent;
 
 use Kagency\Kagent\Storage\UserStorage;
+use Kagency\Kagent\Versioned\Task;
 
 /**
  * Class: Kagent
@@ -30,6 +31,13 @@ class Kagent
     private $userStorage;
 
     /**
+     * Revision provider
+     *
+     * @var RevisionProvider
+     */
+    private $revisionProvider;
+
+    /**
      * Event source factory
      *
      * @var EventSourceFactory
@@ -52,11 +60,13 @@ class Kagent
     public function __construct(
         Storage $storage,
         UserStorage $userStorage,
+        RevisionProvider $revisionProvider,
         EventSource\Factory $eventSourceFactory,
         DataProvider\Factory $dataProviderFactory
     ) {
         $this->storage = $storage;
         $this->userStorage = $userStorage;
+        $this->revisionProvider = $revisionProvider;
         $this->eventSourceFactory = $eventSourceFactory;
         $this->dataProviderFactory = $dataProviderFactory;
     }

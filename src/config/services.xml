@@ -14,6 +14,7 @@
                  class="Kagency\Kagent\Kagent">
             <argument type="service" id="kagency.kagent.storage" />
             <argument type="service" id="kagency.kagent.storage.user" />
+            <argument type="service" id="kagency.kagent.revision_provider" />
             <argument type="service" id="kagency.kagent.factory.event_source" />
             <argument type="service" id="kagency.kagent.factory.data_provider" />
         </service>
@@ -32,6 +33,10 @@
 
         <service id="kagency.kagent.factory.data_provider"
                  class="Kagency\Kagent\DataProvider\Factory">
+        </service>
+
+        <service id="kagency.kagent.revision_provider"
+                 class="Kagency\Kagent\RevisionProvider\Time">
         </service>
     </services>
 </container>
