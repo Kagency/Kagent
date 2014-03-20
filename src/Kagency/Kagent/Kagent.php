@@ -124,7 +124,7 @@ class Kagent
                 foreach ($eventSource->getNewEvents($lastRevision) as $event) {
                     $event->revision = $this->revisionProvider->next();
 
-                    $user->lastEventSourceRevision[$id] = $event->sourceRevision;
+                    $eventSourceContext->setLastEventSourceRevision($user, $id, $event->sourceRevision);
                     $this->userStorage->save($user);
 
                     $this->storage->appendEvent($user, $event);

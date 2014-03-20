@@ -50,4 +50,17 @@ class EventSourceContext
 
         return $user->lastEventSourceRevision[$id];
     }
+
+    /**
+     * Set last event source revision
+     *
+     * @param User $user
+     * @param string $id
+     * @param string $revision
+     * @return void
+     */
+    public function setLastEventSourceRevision(User $user, $id, $revision)
+    {
+         $user->lastEventSourceRevision[$id] = $revision;
+    }
 }
