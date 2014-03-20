@@ -2,7 +2,7 @@
 
 namespace Kagency\Kagent\EventSource;
 
-use Kagency\Kagency\Struct;
+use Kagency\Kagent\Struct;
 
 /**
  * Class: Configuration
@@ -11,6 +11,12 @@ use Kagency\Kagency\Struct;
  *
  * @version $Revision$
  */
-class Configuration
+class Configuration extends Struct
 {
+    /**
+     * Name of corresponding event source. Must always be set.
+     *
+     * @var string
+     */
+    public $name = 'unknown';
 }
